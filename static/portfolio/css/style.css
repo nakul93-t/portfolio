@@ -389,11 +389,13 @@ a {
     gap: 12px;
     color: inherit;
     text-decoration: none;
+    transition: color 180ms ease, transform 180ms ease;
 }
 
 .contact-info a:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    color: var(--green-deep);
+    text-decoration: none;
+    transform: translateX(3px);
 }
 
 .info-card p+p,
