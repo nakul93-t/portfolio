@@ -2,8 +2,6 @@
 const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
-    let statusTimeout;
-
     contactForm.addEventListener("submit", async function (e) {
 
         e.preventDefault();
@@ -11,9 +9,11 @@ if (contactForm) {
         const button = document.getElementById("sendBtn");
         const status = document.getElementById("formStatus");
 
-        clearTimeout(statusTimeout);
-        status.classList.add("d-none");
-        status.classList.remove("alert-success", "alert-danger");
+        const statusToast = bootstrap.Toast.getOrCreateInstance(status, {
+            delay: 5000
+        });
+        statusToast.hide();
+        status.classList.remove("text-bg-success", "text-bg-danger");
         button.disabled = true;
         button.innerHTML = "Sending...";
 
@@ -32,21 +32,19 @@ if (contactForm) {
                 body: data
             });
 
-            status.textContent = "Message sent successfully! Thank you for reaching out.";
-            status.classList.add("alert-success");
-            status.classList.remove("d-none");
-
-            statusTimeout = window.setTimeout(() => {
-                status.classList.add("d-none");
-            }, 5000);
+            status.querySelector(".toast-body").textContent =
+                "Message sent successfully! Thank you for reaching out.";
+            status.classList.add("text-bg-success");
+            statusToast.show();
 
             contactForm.reset();
 
         } catch (error) {
 
-            status.textContent = "Something went wrong. Please try again.";
-            status.classList.add("alert-danger");
-            status.classList.remove("d-none");
+            status.querySelector(".toast-body").textContent =
+                "Something went wrong. Please try again.";
+            status.classList.add("text-bg-danger");
+            statusToast.show();
 
         } finally {
 

@@ -464,11 +464,15 @@
 
             <div class="col-lg-3">
                 <div class="contact-info">
-                    <p><i class="fa-solid fa-envelope"></i>
-                       nakulunni93@gmail.com</p>
+                    <p><a href="mailto:nakulunni93@gmail.com">
+                        <i class="fa-solid fa-envelope"></i>
+                        nakulunni93@gmail.com
+                    </a></p>
 
-                    <p><i class="fa-solid fa-phone"></i>
-                       +91 6238003769</p>
+                    <p><a href="tel:+916238003769">
+                        <i class="fa-solid fa-phone"></i>
+                        +91 6238003769
+                    </a></p>
 
                     <p><i class="fa-solid fa-location-dot"></i>
                        Kannur, Kerala</p>
@@ -502,12 +506,23 @@
 
                     </button>
 
-                    <p id="formStatus"
-                       class="alert mt-3 mb-0 d-none"
-                       role="status"
-                       aria-live="polite"></p>
-
                 </form>
+
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="formStatus"
+                         class="toast text-bg-success border-0"
+                         role="status"
+                         aria-live="polite"
+                         aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body"></div>
+                            <button type="button"
+                                    class="btn-close btn-close-white me-2 m-auto"
+                                    data-bs-dismiss="toast"
+                                    aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -565,6 +580,27 @@
     window.addEventListener("scroll", updateActiveNavLink, { passive: true });
     window.addEventListener("load", updateActiveNavLink);
     updateActiveNavLink();
+
+    const navbar = document.querySelector(".custom-navbar");
+    const navbarMenu = document.querySelector("#mainNavbar");
+    let lastNavbarScrollY = window.scrollY;
+
+    const updateNavbarVisibility = () => {
+        const currentScrollY = window.scrollY;
+        if (Math.abs(currentScrollY - lastNavbarScrollY) < 8) {
+            return;
+        }
+
+        if (currentScrollY < lastNavbarScrollY || currentScrollY <= navbar.offsetHeight || navbarMenu.classList.contains("show")) {
+            navbar.classList.remove("navbar-hidden");
+        } else {
+            navbar.classList.add("navbar-hidden");
+        }
+
+        lastNavbarScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", updateNavbarVisibility, { passive: true });
 
     const revealSections = [...document.querySelectorAll("#about, #skills, #experience, #projects, #certificates, #contact")];
     const revealTargets = [
