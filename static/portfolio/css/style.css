@@ -2667,7 +2667,8 @@ body {
     display: grid;
     max-width: 900px;
     margin: 0 auto;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
 }
 
 .certificate-card {
@@ -2766,6 +2767,12 @@ body {
 .certificate-card:hover .certificate-open {
     background: #f7eee3;
     color: #8d4b31;
+}
+
+@media (max-width: 767.98px) {
+    .certificates-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
 
 @media (max-width: 575.98px) {
